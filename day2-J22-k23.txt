@@ -330,7 +330,91 @@ broadcast:
 trustwave.COM
 
 
+How to configure msp cloud routers.
 
+for sykes
+@D1
+config t
+vlan 26
+ name SYKES.COM
+ exit
+Int vlan 26
+ no shut
+ ip add 10.0.8.1 255.255.248.0
+ip dhcp excluded-add 10.0.8.1 10.0.8.100
+ip dhcp pool SYKES.COM
+ network 10.0.8.0 255.255.248.0
+ default-router 10.0.8.1
+ domain-name SYKES.COM
+ dns-server 10.22.1.10
+ option 150 ip 10.22.100.8
+end
+!in real world, ang mga pc at telephono nakakabit sa access switch
+
+@A2 Switch
+conf t
+  Int e1/0
+  swi access vlan 26
+  do sh ip dhcp binding
+
+@P2 
+  conf t
+  int e1/0
+  no shut
+  ip address dhcp
+  end
+
+
+
+
+For Telus
+D1
+config t
+vlan 27
+ name Telus.COM
+ exit
+Int vlan 27
+ no shut
+ ip add 10.0.16.1 255.255.240.0
+ip dhcp excluded-add 10.0.16.1 10.0.16.100
+ip dhcp pool Telus.COM
+ network 10.0.16.0 255.255.240.0
+ default-router 10.0.16.1
+ domain-name Telus.COM
+ dns-server 10.22.1.10
+ option 150 ip 10.22.100.8
+end
+!in real world, ang mga pc at telephono nakakabit sa access switch
+
+@A1 Switch
+conf t
+  Int e0/0
+  swi access vlan 27
+  do sh ip dhcp binding
+
+@P1
+  conf t
+  int e0/0
+  no shut
+  ip address dhcp
+  end
+
+#for sh checking Br
+sh ip int br | ex una
+
+
+
+
+
+CSI 
+C.S.I
+convertit = Host = 212 = 8b
+subtractit = /32 - 8b = /24 > 3rd , 1i
+ipasok ang 128 sa 3rd hiwa 
+PCSO.gov.ph = 10.0.1.0/24 Network address
+first valid = 10.0.1.1/24 first usable address
+lastip = 10.0.1.255/24 last address/broadcast address
+PCSO.gov.ph = 10.0.2.0/24 not pcso.gov.ph
 
 
 
