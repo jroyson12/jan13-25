@@ -356,7 +356,7 @@ conf t
   Int e1/0
   swi access vlan 26
   do sh ip dhcp binding
-
+end
 @P2 
   conf t
   int e1/0
@@ -404,6 +404,92 @@ sh ip int br | ex una
 
 
 
+for convergys.com 
+CSI
+convertit = Host = 4500 = 13b
+subtractit = /32 - 13b = /19 > 3rd , 32i
+ipasok ang 32 sa 3rd hiwa 
+convergys.com = 10.0.32.0/24 Network address
+first valid = 10.0.32.1/24 first usable address
+lastip = 10.0.63.255/24 last address/broadcast address
+convergys.com = 10.0.64.0/24 not convergys.com
+
+Code:
+@D1
+config t
+vlan 28
+ name convergys.com
+ exit
+Int vlan 28
+ no shut
+ ip add 10.0.32.1 255.255.224.0
+ip dhcp excluded-add 10.0.32.1 10.0.32.100
+ip dhcp pool convergys.com
+ network 10.0.8.0 255.255.248.0
+ default-router 10.0.32.1
+ domain-name convergys.com
+ dns-server 10.22.1.10
+ option 150 ip 10.22.100.8
+end
+!in real world, ang mga pc at telephono nakakabit sa access switch
+
+@A2 Switch
+conf t
+  int e1/0
+  swi access vlan 28
+  do sh ip dhcp binding
+end
+@P2 
+  conf t
+  int e1/0
+  no shut
+  ip address dhcp
+  end
+
+
+
+
+for accenture.com 
+CSI:
+convertit = Host = 350 = 9b
+subtractit = /32 - 9b = /21 > 3rd , 4i
+ipasok ang 4 sa 3rd hiwa 
+accenture.com = 10.0.4.0/24 Network address
+first valid = 10.0.4.1/24 first usable address
+lastip = 10.0.7.255/24 last address/broadcast address
+accenture.com = 10.0.8.0/24 not accenture.com
+
+Code:
+D1
+config t
+vlan 29
+ name accenture.com
+ exit
+Int vlan 29
+ no shut
+ ip add 10.0.4.1 255.255.248.0
+ip dhcp excluded-add 10.0.4.1 10.0.4.100
+ip dhcp pool accenture.com
+ network 10.0.4.0 255.255.248.0
+ default-router 10.0.4.1
+ domain-name accenture.com
+ dns-server 10.22.1.10
+ option 150 ip 10.22.100.8
+end
+!in real world, ang mga pc at telephono nakakabit sa access switch
+
+@A1 Switch
+conf t
+  Int e0/0
+  swi access vlan 29
+  do sh ip dhcp binding
+
+@P1
+  conf t
+  int e0/0
+  no shut
+  ip address dhcp
+  end
 
 
 CSI 
