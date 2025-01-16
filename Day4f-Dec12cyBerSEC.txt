@@ -1,6 +1,35 @@
 DNS IPv4: verizon.com.ph
 DNS IPv6: epldt.com.ph
 
+Cyber Security Job Interview Questions
+ What is CIA?
+  Confidentiality: 
+    - Data is Encrypted: Using MD5, DES, Aes128, AES256, RSA
+     
+  Integrity: 
+    - Data is not Altered: Using hash-like, Sha1, SHA2, and Sha256
+  
+Availability:
+    - Data is Protected through backup 
+
+Confidentiality Demo:
+@Corebaba
+ Conf T
+ username admin privilege 15 secret pass
+ username jr privilege 15 secret pass
+ username merphs privilege 15 secret pass
+ line vty 0 14
+  login local
+ end
+
+Encrypt Cisco Traffic using SSH.
+@Corebaba
+conf t
+ ip domain-name cisco.com
+ crypto key generate rsa
+ !--> ? 1024
+ ip ssh version 2
+
 TASK1: Cisco Security Fundamentals.
 cmd
 ping 10.k.1.10
@@ -922,7 +951,23 @@ CSr, linuxdocker, pythondocker, Postman: RestApi.
 
 
 
+VPN PH (for mgmt)
+conf t
+no logging console
+int gi 2
+ no shut
+ip address 192.168.102.11 255.255.255.0
+end 
+wr
 
+VPN Japan
+conf t
+ no logging console
+int gi 2
+ no shut
+ip address 192.168.102.12 255.255.255.0
+end 
+wr
 
 
 
